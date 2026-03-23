@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="no-scroll">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Arca Aberta — Os Clássicos</title>
+  <link rel="icon" href="logo2.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <!-- MODIFICAÇÃO: Font Awesome para ícones do menu de navegação -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body class="no-scroll">
+
+  <!-- CONTROLES DE LEITURA (TOPO DIREITO) -->
+  <div class="read-controls-top">
+    <button id="accessToggle" class="btn-gold" type="button" aria-label="Ativar leitura de acessibilidade">🔊 Leitura</button>
+    <button id="stopSpeech" class="btn-outline btn-stop-speech" type="button" aria-label="Parar leitura">⏹ Parar</button>
+  </div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo">✦ A Arca Aberta</span>
+      <!-- MODIFICAÇÃO: ícones adicionados + estrutura para efeito de reveal do texto ao hover -->
+      <ul class="nav-links">
+        <li><a href="#hero"><i class="fa-solid fa-house nav-icon"></i><span class="nav-label">Home</span></a></li>
+        <li><a href="#manifesto"><i class="fa-solid fa-scroll nav-icon"></i><span class="nav-label">Manifesto</span></a></li>
+        <li><a href="#classicos"><i class="fa-solid fa-book-open nav-icon"></i><span class="nav-label">Clássicos</span></a></li>
+        <li><a href="#paradoxo"><i class="fa-solid fa-scale-balanced nav-icon"></i><span class="nav-label">Paradoxo</span></a></li>
+        <li><a href="#ciclo"><i class="fa-solid fa-rotate nav-icon"></i><span class="nav-label">Ciclo</span></a></li>
+        <li><a href="#questionario"><i class="fa-solid fa-feather-pointed nav-icon"></i><span class="nav-label">Questionário</span></a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="menu">☰</button>
+    </div>
+  </nav>
+
+  <div id="scrollProgressWrapper" class="scroll-progress-wrapper">
+    <div id="scrollProgressBar" class="scroll-progress-bar"></div>
+  </div>
+
+  <!-- MENU MOBILE -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">✕</button>
+    <ul>
+      <li><a href="#hero" class="mob-link">Home</a></li>
+      <li><a href="#manifesto" class="mob-link">Manifesto</a></li>
+      <li><a href="#classicos" class="mob-link">Clássicos</a></li>
+      <li><a href="#paradoxo" class="mob-link">Paradoxo</a></li>
+      <li><a href="#ciclo" class="mob-link">Ciclo</a></li>
+      <li><a href="#questionario" class="mob-link">Questionário</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content reveal">
+      <div class="hero-ornament">✦ ✦ ✦</div>
+      <h1 class="hero-title">A Arca Aberta</h1>
+      <p class="hero-subtitle">Como e Por Que Ler os Clássicos Desde Cedo</p>
+      <a href="#manifesto" id="waveBtn" class="btn-gold wave-btn">Abrir a Arca ↓</a>
+    </div>
+  </section>
+
+  <!-- SECTION 1 — MEMÓRIA -->
+  <section id="manifesto" class="section section-dark" style="padding-top: 10rem;">
+    <div class="container two-col reveal">
+      <div class="col-image">
+        <img src="sem_texto_02.png" alt="Don Quixote e a memória da infância" class="slide-img" data-close-effect="drift" data-description="Estátua metálica de Dom Quixote em seu cavalo e Sancho Pança em seu burro, com uma menina pequena e curiosa observando-os." />
+      </div>
+      <div class="col-text">
+        <span class="section-tag dark"><h2 style="color:#e3c97a;"><em>O Argumento Central — Não nasce de uma teoria, mas de uma memória.</em></h2></span>
+        <p>Ana Maria Machado mal chegava à altura da escrivaninha do pai quando conheceu as gravuras de Gustavo Doré. O pai apresentou o livro grandalhão e prometeu contar a história aos poucos. Ela nunca mais esqueceu.</p>
+        <div class="highlight-box">
+          <p>"Leituras feitas cedo ficam. <strong>Ficam fundo.</strong>"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — GRANDES CRIADORES -->
+  <section id="classicos" class="section section-cream">
+    <div class="container reveal" style="text-align: center;">
+      <span class="section-tag dark"><h2 style="color:#e09878;"><em>A Evidência Universal — Por trás dos grandes criadores.</em></h2></span>
+      <p class="section-intro dark">A genialidade não os fez ler os clássicos. Ler os clássicos cedo ajudou a formar a genialidade.</p>
+      <div style="max-width: 600px; margin: 0 auto;">
+        <div class="col-image">
+          <img src="foto3.jpeg" alt="Grandes Criadores" class="slide-img" data-close-effect="bloom" data-description="Infográfico intitulado 'A evidência universal por trás dos grandes criadores'. Mostra como clássicos influenciaram grandes nomes da literatura." data-internal-text="Carlos Drummond de Andrade leu Robinson Crusoé; Clarice Lispector leu Reinações de Narizinho; Ernest Hemingway leu Huckleberry Finn; Jorge Luis Borges leu Poe e Melville. A genialidade foi formada pelos clássicos lidos cedo." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — DIAGNÓSTICO MODERNO -->
+  <section class="section section-dark">
+    <div class="container reveal">
+      <span class="section-tag dark"><h2 style="color:#88bba8;"><em>O Diagnóstico Moderno — Não é falta de acesso. É desconhecimento do patrimônio.</em></h2></span>
+      <div class="two-metaphors">
+        <div class="metaphor-card">
+          <img src="sem_texto_04.png" alt="A Árvore Genealógica Cortada" class="metaphor-img" data-close-effect="shatter" data-description="Ilustração de uma árvore genealógica estilizada com os troncos superiores cortados, representando a desconexão com o patrimônio cultural." />
+          <h3>A Árvore Genealógica Cortada</h3>
+          <p>O descendente com amnésia total. Não consegue usufruir de nada do que os antepassados construíram.</p>
+        </div>
+        <div class="metaphor-card">
+          <img src="sem_texto_04.1.png" alt="O Baú Trancado" class="metaphor-img" style="object-position: right;" data-close-effect="flip-y" data-description="Um baú antigo e ornamentado, trancado em uma sala clássica com estantes de livros ao fundo." />
+          <h3>O Baú Trancado na Sala</h3>
+          <p>A herança esquecida. A pessoa sabe que o tesouro existe, mas nunca abriu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — EXCLUSÃO LITERÁRIA -->
+  <section class="section section-cream">
+    <div class="container reveal" style="text-align: center;">
+      <span class="section-tag dark"><h2 style="color:#c8785a;"><em>A Mecânica Política da exclusão literária.</em></h2></span>
+      <div style="max-width: 600px; margin: 0 auto;">
+        <div class="col-image">
+          <img src="foto5.jpeg" alt="Mecânica da exclusão literária" class="slide-img" data-close-effect="flip-y" data-description="Infográfico 'A mecânica política da exclusão literária'. Mostra o ciclo do consumo bloqueando a reflexão." data-internal-text="No passado havia Exclusão Direta. No presente, o Consumo funciona como Filtro, gerando escassez de tempo, falta de espaço para reflexão e incapacidade de imaginar mundos diferentes." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — ATO DE RESISTÊNCIA -->
+  <section class="section section-dark hero-quote" style="padding-top: 10rem;">
+    <div class="container two-col reveal">
+      <div class="col-text">
+        <blockquote class="big-quote" style="margin: 0 0 1rem 0; font-size: 1.8rem; text-align: left;">
+          "Ler não é um passatempo.<br/>É uma recusa ao imediatismo."
+        </blockquote>
+        <p class="quote-body" style="margin-left: 0;">A leitura de um clássico é um ato de resistência política. Ela interrompe a corrida do consumo e devolve ao indivíduo a capacidade de imaginar mundos alternativos.</p>
+        <p class="subtext">O clássico exige os exatos recursos que o sistema tenta sequestrar: <strong>tempo e reflexão.</strong></p>
+      </div>
+      <div class="col-image">
+        <img src="sem_texto_06.png" alt="O Clássico como resistência" class="slide-img" data-close-effect="dissolve" data-description="Uma pessoa imersa na leitura de um livro físico em um ambiente doméstico acolhedor, simbolizando resistência ao imediatismo." />
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 — PARADOXO -->
+  <section id="paradoxo" class="section section-cream">
+    <div class="container reveal" style="text-align: center;">
+      <span class="section-tag dark"><h2 style="color:#b8a8d8;"><em>O Paradoxo do Prazer — Entretenimento vs. Transformação.</em></h2></span>
+      <p class="section-intro dark">Recusar a versão fácil do prazer é o primeiro passo para a literatura.</p>
+      <div style="max-width: 600px; margin: 0 auto;">
+        <div class="col-image">
+          <img src="foto7.jpeg" alt="Paradoxo do Prazer" class="slide-img" data-close-effect="spiral" data-description="Tabela comparativa entre 'O Entretenimento Fácil' e 'A Busca do Prazer Difícil'." data-internal-text="Entretenimento Fácil é passivo, rápido e um passatempo para ser esquecido. A busca do prazer difícil é ativa, lenta e uma viagem no tempo projetada para transformar quem lê." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7 — ANATOMIA DO TEXTO -->
+  <section class="section section-dark">
+    <div class="container reveal">
+      <span class="section-tag dark"><h2 style="color:#d4aa50;"><em>A Anatomia da "Erótica do Texto" — A recompensa está do outro lado da resistência.</em></h2></span>
+      <div style="max-width: 600px; margin: 0 auto;">
+        <div class="col-image">
+          <img src="foto8.jpeg" alt="Anatomia da Erótica do Texto" class="slide-img" data-close-effect="dissolve" data-description="Gráfico da 'Anatomia da Erótica do Texto' mostrando a recompensa em função do tempo e esforço." data-internal-text="A Resistência do Texto é o início com atrito de linguagem e complexidade. A Travessia leva ao Desejo Permanente e ao prazer difícil. A leitura de verdade não é passiva." />
+        </div>
+      </div>
+      <p class="quote-footer">A leitura de verdade não é passiva. Você enfrenta um texto que resiste, mas sai do outro lado completamente diferente.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 8 — VIOLÊNCIA PEDAGÓGICA -->
+  <section class="section section-cream">
+    <div class="container reveal">
+      <div class="col-text">
+        <blockquote class="inline-quote">
+          <p class="section-intro dark"><em>"Obrigar alguém a ler é vacinar o sujeito contra a leitura para sempre."</em></p>
+          <cite>— Monteiro Lobato</cite>
+        </blockquote>
+      </div>
+      <div style="max-width: 600px; margin: 2rem auto 0 auto;">
+        <div class="col-image">
+          <img src="foto9.jpeg" alt="A violência pedagógica" class="slide-img" data-close-effect="fall" data-description="Infográfico sobre a Violência Pedagógica com uma ilustração de um livro marcado com um X vermelho de avaliação." data-internal-text="Citação de Monteiro Lobato: 'Obrigar alguém a ler é vacinar o sujeito contra a leitura para sempre'. Erros comuns incluem foco exclusivo em provas e pressão cronológica." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9 — MODELO IDEAL -->
+  <section class="section section-dark">
+    <div class="container reveal" style="text-align:center;">
+      <span class="section-tag dark"><h2 style="color:#80b4d4;"><em>O Modelo Ideal — O Primeiro Encontro Transformador.</em></h2></span>
+      <div style="max-width: 600px; margin: 0 auto;">
+        <div class="col-image">
+          <img src="foto10.png" alt="O Modelo Ideal — O Primeiro Encontro" class="slide-img" data-close-effect="bloom" data-description="Diagrama de Venn intitulado 'O Encontro Transformador'." data-internal-text="A intersecção de Adaptação Adequada, Zero Pressão e Entusiasmo Real resulta no Encontro Transformador, onde a herança cultural é finalmente transmitida." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 10 — TABELA -->
+  <section class="section section-cream">
+    <div class="container reveal">
+      <span class="section-tag dark"><h2 style="color:#78c0b8;"><em>Tabela Diagnóstica — Como (não) apresentar um clássico.</em></h2></span>
+      <div style="max-width: 600px; margin: 2rem auto 0 auto;">
+        <div class="col-image">
+          <img src="foto11.png" alt="Como (não) apresentar um clássico" class="slide-img" data-close-effect="shatter" data-description="Tabela diagnóstica comparando o modelo de Erro vs Acerto na apresentação de um clássico literário." data-internal-text="Erro é focar na prova e leitura obrigatória. Acerto é conhecer um outro mundo e leitura compartilhada guiada por afeto." />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 11 — ATRITO ESTRUTURAL -->
+  <section class="section section-dark">
+    <div class="container reveal">
+      <div class="col-text">
+         <span class="section-tag dark"><h2 style="color:#d48060;"><em>O Atrito com a Realidade o que o livro não resolve.</em></h2></span>
+        <div style="max-width: 600px; margin: 2rem auto 0 auto;">
+            <div class="col-image">
+             <img src="foto12.jpeg" alt="O atrito com a realidade estrutural" class="slide-img" data-close-effect="fall" data-description="Ilustração técnica de uma sala de aula vazia com sobreposição de tópicos sobre as barreiras estruturais da educação." data-internal-text="O que o livro não resolve: Desigualdade estrutural e extrema de acesso, salas de aula superlotadas em escolas públicas e escassez crônica de materiais de qualidade." />
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 12 — CICLO DA FORMAÇÃO -->
+  <section id="ciclo" class="section section-cream">
+    <div class="container reveal">
+      <span class="section-tag dark"><h2 style="color:#98c870;"><em>O Ciclo da Formação — A engrenagem da herança cultural.</em></h2></span>
+      <div style="max-width: 600px; margin: 0 auto;">
+        <div class="col-image">
+          <img src="foto13.jpeg" alt="O Ciclo da Formação" class="slide-img" data-close-effect="spiral" data-description="Infográfico circular 'O Ciclo da Formação: A engrenagem da herança cultural'." data-internal-text="Passos: Mediação Afetuosa, Leitura do Clássico Adaptado, O Prazer Difícil e Reflexão, Resistência ao Imediatismo e Acesso à Herança Universal. A criança formada torna-se o próximo mediador." />
+        </div>
+      </div>
+      <p class="quote-footer">A criança formada torna-se o próximo mediador.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 13 — MANIFESTO FINAL -->
+  <section class="section section-dark manifesto-final">
+    <div class="container reveal" style="text-align:center; max-width:860px;">
+      <div class="ornament-line"></div>
+      <p class="manifesto-text">
+        Os clássicos não são um teste de inteligência escolar.<br/>
+        São o nosso testamento coletivo.<br/>
+        Apresentá-los cedo, com afeto e sem violência pedagógica,<br/>
+        é garantir que a próxima geração receba a sua herança por direito.
+      </p>
+      <div class="ornament-line"></div>
+    </div>
+  </section>
+
+  <!-- SECTION 14 — ARCA -->
+  <section id="arca" class="section section-dark quiz-section">
+    <div class="container reveal" style="text-align:center;">
+      <div style="max-width: 600px; margin: 0 auto 2.5rem auto;">
+        <div class="col-image">
+          <img src="sem_texto_15.png" alt="A arca está destrancada" class="slide-img" data-close-effect="bloom" data-description="Ilustração de uma arca aberta transbordando luz dourada e livros clássicos, simbolizando o acesso ao tesouro literário." />
+        </div>
+      </div>
+      <span class="section-tag dark"><h2 style="color:#e8b880;"><em>A Arca Está Destrancada — Qual clássico você vai abrir hoje?</em></h2></span>
+    </div>
+  </section>
+
+  <!-- SECTION 15 — ESCOLHA SEU CLÁSSICO -->
+  <section class="section section-dark quiz-section">
+    <div class="container reveal">
+      <span class="section-tag dark"><h2 style="color:#e3c97a; text-align:center;"><em>Escolha um clássico abaixo ou escreva o seu. Sua resposta faz parte de um registro coletivo.</em></h2></span>
+
+      <div style="display:flex; gap:2.5rem; align-items:flex-start; margin-top:1.5rem; flex-wrap:wrap;">
+
+        <!-- QUESTIONÁRIO (esquerda) -->
+        <div style="flex:1; min-width:280px;">
+          <div class="quiz-box" id="quizBox">
+            <div class="quiz-options" id="quizOptions">
+              <button class="quiz-btn" data-book="Dom Quixote">Dom Quixote</button>
+              <button class="quiz-btn" data-book="Robinson Crusoé">Robinson Crusoé</button>
+              <button class="quiz-btn" data-book="Reinações de Narizinho">Reinações de Narizinho</button>
+              <button class="quiz-btn" data-book="Huckleberry Finn">Huckleberry Finn</button>
+              <button class="quiz-btn" data-book="O Pequeno Príncipe">O Pequeno Príncipe</button>
+              <button class="quiz-btn" data-book="Odisseia">Odisseia</button>
+              <button class="quiz-btn" data-book="Ilusões Perdidas">Ilusões Perdidas</button>
+              <button class="quiz-btn" data-book="Hamlet">Hamlet</button>
+            </div>
+            <div class="quiz-custom">
+              <input type="text" id="customBook" placeholder="Ou escreva outro clássico..." maxlength="80" />
+              <input type="text" id="userName" placeholder="Seu nome (opcional)" maxlength="40" />
+              <button class="btn-gold" id="submitBtn">Registrar minha escolha ✦</button>
+            </div>
+            <div class="quiz-feedback" id="quizFeedback" style="display:none;"></div>
+          </div>
+        </div>
+
+        <!-- PLACAR DE RESPOSTAS (direita) -->
+        <div style="flex:1; min-width:280px;">
+          <div class="scoreboard" id="scoreboard">
+            <h3>📚 O que a turma está lendo</h3>
+            <div class="score-list" id="scoreList">
+              <p class="loading-text">Carregando respostas...</p>
+            </div>
+            <button class="btn-outline" id="clearBtn" style="display:none;">Limpar base de dados</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-title">✦ A Arca Aberta ✦</p>
+      <p>Baseado no manifesto literário de <em>Ana Maria Machado</em></p>
+      <p class="footer-small">Zumbie · 2026</p>
+      <p class="footer-small" style="margin-top: 1.5rem; opacity: 0.6; font-size: 0.85rem;">&copy; 2026 Todos os direitos reservados a <em>Erlon Dutra</em>.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/quiz.js"></script>
+
+  <!-- AVISO MODAL -->
+  <div id="avisoModal" class="aviso-modal">
+    <div class="aviso-content">
+      <p id="avisoTexto" class="neon">Para voce vizualizar melhor as imagens, toque ou click nelas</p>
+      <button id="avisoBtn" class="btn-gold">OK, CIENTE</button>
+    </div>
+  </div>
+
+</body>
+</html>
