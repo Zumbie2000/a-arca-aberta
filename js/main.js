@@ -21,8 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ).join('');
   }
 
-
-
   // ── MOBILE MENU ──
   const toggle = document.getElementById('navToggle');
   const mobileMenu = document.getElementById('mobileMenu');
@@ -68,7 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const highlightNav = (id) => {
     navLinks.forEach(link => {
-      link.style.color = link.getAttribute('href') === `#${id}` ? 'var(--gold)' : '';
+      const isActive = link.getAttribute('href') === `#${id}`;
+      if (isActive) {
+        link.classList.add('active-nav');
+      } else {
+        link.classList.remove('active-nav');
+      }
     });
   };
 
@@ -87,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
-  }, { threshold: 0.4 }); // 40% da seção visível para considerar como ativa
+  }, { threshold: 0.4 });
 
   sections.forEach(sec => sectionObserver.observe(sec));
 
@@ -122,6 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const getBestVoice = () => {
     const voices = speechSynthesis.getVoices();
+    
+    if (!voices || voices.length === 0) {
+      console.warn('Nenhuma voz disponível no sistema');
+      return null;
+    }
 
     // 1ª prioridade: voz masculina confirmada no sistema
     const daniel = voices.find(v => v.name === 'Microsoft Daniel - Portuguese (Brazil)');
@@ -140,19 +148,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fallback: qualquer pt-BR, depois pt, depois primeira disponível
     return voices.find(v => v.lang === 'pt-BR') ||
            voices.find(v => v.lang.startsWith('pt')) ||
-           voices[0];
+           voices[0] || null;
   };
 
   // Pré-processa o texto para leitura mais natural e humana
   const humanizeText = (text) => {
     return text
-      // Adiciona pausas após pontuação forte
       .replace(/([.!?])\s+/g, '$1  ')
-      // Adiciona pausa suave em travessões e dois-pontos
       .replace(/([—:\-])\s+/g, '$1 ')
-      // Remove marcações desnecessárias que soam estranhas
       .replace(/✦|✔|❌|🚨/g, '')
-      // Remove excesso de espaços
       .replace(/\s{3,}/g, '  ')
       .trim();
   };
@@ -161,15 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const active = sections[currentSectionIndex];
     if (!active) return [];
 
-    // Seletores para capturar todos os itens de conteúdo (textos e imagens)
-    const selector = 'h1, h2, h3, h4, h5, h6, p, li, blockquote, cite, figcaption, dt, dd, label, img, .section-tag, .highlight-box, .big-quote, .quote-body, .quote-footer, .manifesto-text, .inline-quote, .subtext';
+    const selector = 'h1, h2, h3, h4, h5, h6, p, li, blockquote, cite, figcaption, dt, dd, label, img, .highlight-box, .big-quote, .quote-body, .quote-footer, .manifesto-text, .inline-quote, .subtext';
 
     const queue = [];
     active.querySelectorAll(selector).forEach(item => {
-      // Ignora elementos dentro de botões, nav, modais e controles de interface
       if (item.closest('button, nav, .read-controls-top, .aviso-modal, .mobile-menu, #quizOptions, .quiz-custom, .scoreboard')) return;
 
-      // Tratamento especial para imagens
       if (item.tagName.toLowerCase() === 'img') {
         const description = item.getAttribute('data-description') || item.getAttribute('alt');
         const internalText = item.getAttribute('data-internal-text');
@@ -185,7 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Ignora itens de texto que já foram coletados via ancestral (evita duplicatas)
       if (item.querySelector('h1,h2,h3,h4,h5,h6,p,li,blockquote,cite')) return;
 
       const text = item.textContent.trim();
@@ -208,7 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const processQueue = () => {
     if (!ttsActive || queueIndex >= narrationQueue.length) {
-      // Fim da seção, avança para a próxima se estiver no auto-read
       if (ttsActive && currentSectionIndex < sections.length - 1) {
         const nextSection = sections[currentSectionIndex + 1];
         if (nextSection) {
@@ -227,6 +226,11 @@ document.addEventListener('DOMContentLoaded', () => {
         queueIndex++;
         processQueue();
       };
+      ttsUtterance.onerror = (error) => {
+        console.error('Erro na síntese de fala:', error);
+        queueIndex++;
+        processQueue();
+      };
       speechSynthesis.speak(ttsUtterance);
     } else if (block.type === 'image') {
       const hasInternal = block.internalText && block.internalText.length > 0;
@@ -242,7 +246,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ttsUtterance.onend = () => {
           if (hasInternal) {
             collapseImage(block.element);
-            // Espera a animação de fechar antes de continuar
             setTimeout(() => {
               queueIndex++;
               processQueue();
@@ -252,12 +255,16 @@ document.addEventListener('DOMContentLoaded', () => {
             processQueue();
           }
         };
+        ttsUtterance.onerror = (error) => {
+          console.error('Erro na síntese de fala:', error);
+          queueIndex++;
+          processQueue();
+        };
         speechSynthesis.speak(ttsUtterance);
       };
 
       if (hasInternal) {
         expandImage(block.element);
-        // Espera a animação de zoom antes de começar a ler
         setTimeout(startReading, 1000);
       } else {
         startReading();
@@ -270,12 +277,16 @@ document.addEventListener('DOMContentLoaded', () => {
     utterance.rate = 0.70;
     utterance.pitch = 1.05;
     utterance.volume = 1;
-    utterance.voice = getBestVoice();
+    const voice = getBestVoice();
+    if (voice) {
+      utterance.voice = voice;
+    }
   };
 
   const speakCurrentSection = () => {
     if (!('speechSynthesis' in window)) {
-      alert('Leitura por voz não é suportada neste navegador. Tente no Chrome ou Edge.');
+      console.error('Leitura por voz não é suportada neste navegador');
+      accessToggle.textContent = '🔊 Leitura (Não suportado)';
       return;
     }
 
@@ -314,7 +325,6 @@ document.addEventListener('DOMContentLoaded', () => {
     stopSpeech();
   });
 
-  // Inicializa a navegação da primeira seção visível
   currentSectionIndex = 0;
 
   // ── IMAGE EXPAND/COLLAPSE ──
@@ -325,7 +335,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentExpandedImg = null;
 
   document.querySelectorAll('.slide-img, .full-slide-img, .metaphor-img').forEach(img => {
-    // Clique/Toque — alternar expansão (todos os dispositivos)
     img.addEventListener('click', (e) => {
       e.stopPropagation();
 
@@ -353,11 +362,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function collapseImage(imgWrap) {
-    if (!imgWrap) return; // Ensure there's an image to collapse
+    if (!imgWrap) return;
 
-    const img = imgWrap.querySelector('.slide-img') || imgWrap; // Use imgWrap itself if it's the image
-    
-    // Lê o efeito do atributo data da imagem, ou usa zoom-blur como padrão
+    const img = imgWrap.querySelector('.slide-img') || imgWrap;
     const effectName = img.dataset.closeEffect || 'zoom-blur';
     const effectClass = `close-${effectName}`;
 
@@ -367,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (overlay.classList.contains('active')) {
       overlay.classList.remove('active');
     }
-    document.body.style.overflow = ''; // Restore scroll
+    document.body.style.overflow = '';
 
     setTimeout(() => {
       imgWrap.classList.remove(effectClass);
@@ -377,8 +384,8 @@ document.addEventListener('DOMContentLoaded', () => {
       imgWrap.style.height = '';
       imgWrap.style.position = '';
       imgWrap.style.zIndex = '';
-      currentExpandedImg = null; // Reset currentExpandedImg after collapse
-    }, 650); // Média de tempo das animações
+      currentExpandedImg = null;
+    }, 650);
   }
 
   // Fechar com a tecla ESC
@@ -401,7 +408,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     avisoBtn.addEventListener('click', () => {
-      // Desbloqueia o scroll imediatamente ao clicar em OK
       document.body.classList.remove('no-scroll');
       document.documentElement.classList.remove('no-scroll');
 
@@ -411,15 +417,13 @@ document.addEventListener('DOMContentLoaded', () => {
       avisoBtn.style.display = "none";
       setTimeout(() => {
         avisoModal.classList.remove('active');
-        // Navega para a seção manifesto
         setTimeout(() => {
-          // Restaura o modal ao estado original
           avisoTexto.classList.remove('wave');
           avisoTexto.classList.add('neon');
-          avisoTexto.textContent = "Para voce vizualizar melhor as imagens, toque ou click nelas";
+          avisoTexto.textContent = "Para visualizar melhor as imagens, toque ou clique nelas";
           avisoBtn.style.display = "inline-block";
           goToSectionById('manifesto');
-        }, 400); // aguarda a animação de fechamento terminar
+        }, 400);
       }, 3000);
     });
   }

@@ -3,20 +3,24 @@
    Base de dados: localStorage (db_classicos)
    ============================================ */
 
-// ── DATABASE ────────────────────────────────
 const DB_KEY = 'db_classicos_v1';
 
 function dbLoad() {
   try {
     const raw = localStorage.getItem(DB_KEY);
     return raw ? JSON.parse(raw) : { responses: [], counts: {} };
-  } catch {
+  } catch (error) {
+    console.error('Erro ao carregar dados do localStorage:', error);
     return { responses: [], counts: {} };
   }
 }
 
 function dbSave(data) {
-  localStorage.setItem(DB_KEY, JSON.stringify(data));
+  try {
+    localStorage.setItem(DB_KEY, JSON.stringify(data));
+  } catch (error) {
+    console.error('Erro ao salvar dados no localStorage:', error);
+  }
 }
 
 function dbAddResponse(book, name) {
@@ -41,7 +45,6 @@ function dbClear() {
   dbSave({ responses: [], counts: {} });
 }
 
-// ── SCOREBOARD ─────────────────────────────
 function renderScoreboard() {
   const list = document.getElementById('scoreList');
   if (!list) return;
@@ -70,14 +73,15 @@ function renderScoreboard() {
 }
 
 function escapeHTML(str) {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
 }
 
-// ── QUIZ LOGIC ─────────────────────────────
+function validateInput(input) {
+  return input && input.trim().length > 0 && input.trim().length <= 80;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const quizBtns = document.querySelectorAll('.quiz-btn');
   const customInput = document.getElementById('customBook');
@@ -88,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let selectedBook = '';
 
-  // Select preset book
   quizBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       quizBtns.forEach(b => b.classList.remove('selected'));
@@ -98,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Clear selection if typing custom
   customInput.addEventListener('input', () => {
     if (customInput.value.trim()) {
       quizBtns.forEach(b => b.classList.remove('selected'));
@@ -106,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // SUBMIT
   submitBtn.addEventListener('click', () => {
     const custom = customInput.value.trim();
     const book = custom || selectedBook;
@@ -117,18 +118,26 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    if (!validateInput(book)) {
+      showFeedback('⚠ O nome do clássico deve ter entre 1 e 80 caracteres.', 'warn');
+      return;
+    }
+
+    if (name && !validateInput(name)) {
+      showFeedback('⚠ O nome deve ter entre 1 e 40 caracteres.', 'warn');
+      return;
+    }
+
     dbAddResponse(book, name);
     renderScoreboard();
     showFeedback(`✦ "${escapeHTML(book)}" foi registrado! Boa leitura${name ? ', ' + escapeHTML(name) : ''}.`, 'ok');
 
-    // Reset
     quizBtns.forEach(b => b.classList.remove('selected'));
     customInput.value = '';
     nameInput.value = '';
     selectedBook = '';
   });
 
-  // CLEAR DB
   clearBtn.addEventListener('click', () => {
     if (confirm('Tem certeza que deseja apagar todos os registros?')) {
       dbClear();
@@ -137,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 🔒 ATALHO SECRETO DO DESENVOLVEDOR: Ctrl + Shift + L
   document.addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.shiftKey && e.key === 'L') {
       const isVisible = clearBtn.style.display !== 'none';
@@ -157,7 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 5000);
   }
 
-  // Initial render
   renderScoreboard();
 });
 
